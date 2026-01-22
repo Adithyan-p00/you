@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For You 💗</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #fff0f5, #f0f9ff);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 24px;
+      padding: 26px 22px;
+      max-width: 380px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+      z-index: 2;
+      animation: pop 0.6s ease;
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .text {
+      font-size: 17px;
+      line-height: 1.6;
+      color: #333;
+      margin-bottom: 22px;
+    }
+
+    .highlight {
+      color: #ff4d88;
+      font-weight: 600;
+    }
+
+    button {
+      border: none;
+      background: #ff4d88;
+      color: white;
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(255,77,136,0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px rgba(255,77,136,0.45);
+    }
+
+    .floating-container {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .balloon {
+      position: absolute;
+      bottom: -60px;
+      width: 28px;
+      height: 38px;
+      background: #ffb6c1;
+      border-radius: 50%;
+      animation: floatUp linear forwards;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -40px;
+      width: 20px;
+      height: 20px;
+      background: #ff4d88;
+      transform: rotate(45deg);
+      animation: floatUp linear forwards;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: #ff4d88;
+      border-radius: 50%;
+    }
+
+    .heart::before { top: -10px; left: 0; }
+    .heart::after { left: -10px; top: 0; }
+
+    @keyframes floatUp {
+      from { transform: translateY(0) scale(1); opacity: 1; }
+      to { transform: translateY(-110vh) scale(1.2); opacity: 0; }
+    }
+
+    @media (max-width: 480px) {
+      .text { font-size: 16px; }
+      button { width: 100%; padding: 14px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Background Music (continues from page1) -->
+  <audio id="bgMusic" src="song.mp3" loop autoplay></audio>
+
+  <div class="floating-container" id="floatZone"></div>
+
+  <div class="card">
+    <div class="text">
+      <span class="highlight">nee</span> truly <span class="highlight">amazing</span> aanu ✨<br />
+      so <span class="highlight">beautiful</span>, inside & outside 💖<br /><br />
+      <span class="highlight">nee prarthichath ellam</span><br />
+      life-il kittatte…<br />
+      I really hope you get <span class="highlight">everything you hoped for</span>
+    </div>
+
+    <button onclick="nextPage()">next 💕</button>
+  </div>
+
+  <script>
+    // Ensure music only plays if started on Page 1
+    if (localStorage.getItem("musicPlaying") !== "true") {
+      document.getElementById("bgMusic").pause();
+    }
+
+    function nextPage() {
+      window.location.href = "page3.html";
+    }
+
+    const container = document.getElementById("floatZone");
+
+    setInterval(() => {
+      const el = document.createElement("div");
+      el.className = Math.random() > 0.5 ? "balloon" : "heart";
+      el.style.left = Math.random() * 100 + "vw";
+      el.style.animationDuration = 4 + Math.random() * 3 + "s";
+      container.appendChild(el);
+      setTimeout(() => el.remove(), 7000);
+    }, 500);
+  </script>
+
+</body>
+</html>
